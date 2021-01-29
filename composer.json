@@ -1,0 +1,15 @@
+{
+    "name": "itachi/testfirebase",
+    "authors": [
+        {
+            "name": "onyweb",
+            "email": "onyweb.contact@gmail.com"
+        }
+    ],
+    "require": {
+        "grpc/grpc": "^v1.27.0",
+        "google/protobuf": "^v3.3.0",
+        "kreait/firebase-php": "^5.14",
+        "google/cloud-firestore": "^1.19"
+    }
+}
