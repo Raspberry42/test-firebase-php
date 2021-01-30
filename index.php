@@ -12,4 +12,17 @@ $database = $firestore->database();
 $ref = $database->collection('messages');
 $snapshot = $ref->documents();
 
-var_dump($snapshot);
+// var_dump($snapshot);
+
+/** @var iterable<\Google\Cloud\Firestore\DocumentSnapshot> $documents */
+$documents = $ref->documents();
+
+foreach ($documents as $document) {
+    echo $document->path().PHP_EOL;
+
+    echo PHP_EOL;
+
+    print_r($document->data());
+
+    echo PHP_EOL.'---'.PHP_EOL.PHP_EOL;
+}
