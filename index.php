@@ -1,37 +1,38 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
+declare(strict_types=1);
 
 use Kreait\Firebase\Factory;
+use Kreait\Firebase\Util\JSON;
 
-$factory = (new Factory)->withServiceAccount('secret/test-cb42f-f9d8f278b806.json');
+require_once __DIR__.'/vendor/autoload.php';
 
-$firestore = $factory->createFirestore();
-$database = $firestore->database();
+$factory = (new Factory)->withServiceAccount(__DIR__.'/secret/test-cb42f-f9d8f278b806.json');
 
-use Kreait\Firebase\Auth;
+$auth = $factory->createAuth();
 
-//$auth = (new Auth)-> ??????????
+/*
+// Remove all users
+foreach ($auth->listUsers() as $user) {
+    $auth->deleteUser($user->uid);
+}
+*/
 
+/*
+// Insert user
 $userProperties = [
-    'email' => 'user@example.com',
-    'emailVerified' => false,
-    'phoneNumber' => '+15555550100',
-    'password' => 'secretPassword',
-    'displayName' => 'John Doe',
-    'photoUrl' => 'http://www.example.com/12345678/photo.png',
-    'disabled' => false,
+    'email' => 'jon-snow69955@yahoo.fr',
+    'displayName' => 'jon snow',
+    'password' => 'azerty',
+    'emailVerified' => true,
+    'disabled' => false
 ];
 
 $createdUser = $auth->createUser($userProperties);
+*/
 
-// This is equivalent to:
+$actionCodeSettings = [
+    'continueUrl' => 'http://localhost/zone42/testfirebase/page2.php'
+];
 
-$request = \Kreait\Auth\Request\CreateUser::new()
-    ->withUnverifiedEmail('user@example.com')
-    ->withPhoneNumber('+15555550100')
-    ->withClearTextPassword('secretPassword')
-    ->withDisplayName('John Doe')
-    ->withPhotoUrl('http://www.example.com/12345678/photo.png');
-
-$createdUser = $auth->createUser($request);
+$auth->sendSignInWithEmailLink('jon-snow69955@yahoo.fr', $actionCodeSettings);
